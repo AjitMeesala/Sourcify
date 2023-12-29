@@ -9,6 +9,7 @@ import "package:sourcify/core/store.dart";
 import "package:velocity_x/velocity_x.dart";
 
 void main() {
+  Vx.setPathUrlStrategy();
   runApp(VxState(store: MyStore(), child: const MyApp()));
 }
 
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
         RouteSet.homeRoute: (context) => const Home(),
         RouteSet.loginRoute: (context) => const Login(),
         RouteSet.cartRoute: (context) => const Cart(),
-        RouteSet.testRoute: (context) => const RegisterPage(),
+        RouteSet.signupRoute: (context) => const RegisterPage(),
       },
     );
   }
