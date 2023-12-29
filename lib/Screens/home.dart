@@ -21,7 +21,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomePageState extends State<Home> {
-  final url = "https://myapp-wloq.onrender.com/api/get/products";
+  final url = "https://Sourcify.onrender.com/api/get/products";
   @override
   void initState() {
     super.initState();
@@ -32,7 +32,11 @@ class _HomePageState extends State<Home> {
     await Future.delayed(const Duration(seconds: 2));
     // final catalogJson =
     //     await rootBundle.loadString("assets/files/catalog.json");
-    final res = await http.get(Uri.parse(url));
+    final res = await http.get(Uri.parse(url),
+    headers: {
+          "Accept": "application/json",
+          "Access-Control-Allow-Headers": "Access-Control-Allow-Origin, Accept"
+        });
     final catalogJson = res.body;
     final decodedData = jsonDecode(catalogJson);
     var productsData = decodedData["products"];
