@@ -29,7 +29,6 @@ migrate_working_dir/
 .flutter-plugins-dependencies
 .pub-cache/
 .pub/
-/build/
 
 # Symbolication related
 app.*.symbols
@@ -2370,3 +2369,18 @@ node_modules/yallist/package.json
 node_modules/yallist/README.md
 node_modules/yallist/yallist.js
 .env
+build/59906ac2072ea23d943f4334a0ae780f.cache.dill.track.dill
+build/flutter_assets/AssetManifest.bin
+build/flutter_assets/AssetManifest.bin.json
+build/flutter_assets/AssetManifest.json
+build/flutter_assets/FontManifest.json
+build/flutter_assets/NOTICES
+build/flutter_assets/assets/images/ajit.jpeg
+build/flutter_assets/assets/images/hey.png
+build/flutter_assets/assets/images/login.png
+build/flutter_assets/fonts/MaterialIcons-Regular.otf
+build/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf
+build/flutter_assets/shaders/ink_sparkle.frag
+build/3f92b9ca426e6592737505134e0ca78c/_composite.stamp
+build/3f92b9ca426e6592737505134e0ca78c/gen_dart_plugin_registrant.stamp
+build/3f92b9ca426e6592737505134e0ca78c/gen_localizations.stamp
