@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:velocity_x/velocity_x.dart';
+
 import 'package:sourcify/Models/catalog.dart';
 import 'package:sourcify/Widgets/home_widgets/addtocart.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 class ProductDetails extends StatelessWidget {
   final Item catalog;
-  const ProductDetails({super.key, required this.catalog});
+  const ProductDetails({
+    Key? key,
+    required this.catalog,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

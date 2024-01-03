@@ -1,7 +1,7 @@
 class RouteSet {
-  static const String loginRoute = '/login.dart';
-  static const String homeRoute = '/home.dart';
-  static const String productDetailsRoute = '/product_details.dart';
-  static const String cartRoute = '/cart.dart';
-  static const String signupRoute = '/register_page.dart';
+  static const String loginRoute = '/login';
+  static const String homeRoute = '/home';
+  static const String productDetailsRoute = '/product_details';
+  static const String cartRoute = '/cart';
+  static const String signupRoute = '/register_page';
 }
