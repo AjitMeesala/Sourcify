@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sourcify/Models/user.dart';
-import 'package:sourcify/Utilities/api/register_api.dart';
+import 'package:sourcify/Utilities/api/api.dart';
 import 'package:sourcify/Utilities/routes.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -19,8 +19,11 @@ class _RegisterPageState extends State<RegisterPage> {
   final _mobileController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final RegExp emailRegex = RegExp(
+    r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$',
+  );
 
-  oveToHome(BuildContext context) async {
+  moveToHome(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       setState(() {
         changeButton = true;
@@ -97,10 +100,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 validator: (value) {
                   if (value?.isEmpty ?? true) {
                     return "Email cannot be empty!!!";
-                  } else if (!value!.contains('@')) {
-                    return "Email must contain @";
-                  } else if (!value.contains('.')) {
-                    return "Email must contain .";
+                  } else if (!emailRegex.hasMatch(value!)) {
+                    return "Invalid Email";
                   } else {
                     return null;
                   }
@@ -110,12 +111,16 @@ class _RegisterPageState extends State<RegisterPage> {
                 controller: _passwordController,
                 decoration: const InputDecoration(labelText: 'Password'),
                 validator: (value) {
-                  if (value?.isEmpty ?? true) {
-                    return "Password cannot be empty!!!";
-                  } else if (value!.length < 6) {
-                    return "Password length should be atleast 6!!!";
+                  if (!value!.contains(RegExp(r'^.{8,}$'))) {
+                    return 'Password must be at least 8 characters long.';
+                  } else if (!value.contains(RegExp(r'[a-zA-Z]'))) {
+                    return 'Password must contain at least one letter.';
+                  } else if (!value.contains(RegExp(r'\d'))) {
+                    return 'Password must contain at least one digit.';
+                  } else if (!value.contains(RegExp(r'[@$!%*#?&]'))) {
+                    return 'Password must contain at least one special character (@, \$, !, %, *, #, ?, or &).';
                   } else {
-                    return null;
+                    return null; // No error
                   }
                 },
                 obscureText: true,

@@ -129,4 +129,38 @@ app.post("/api/register", async (req, res) => {
   }
 });
 
+app.post("/api/login", async (req, res) => {
+  try {
+    await mongoose
+      .connect(process.env.MongoDB_URI)
+      .then(() => {})
+      .catch((err) => {});
+
+    // Extract email and password from the request body
+    const { email, password } = req.body;
+
+    // Check if the user exists
+    const existingUser = await User.findOne({ email });
+    if (!existingUser) {
+      mongoose.disconnect();
+      return res.status(400).json({ message: "User does not exist" });
+    }
+
+    // Check if the password is correct
+    if (existingUser.password !== password) {
+      mongoose.disconnect();
+      return res.status(400).json({ message: "Password is incorrect" });
+    }
+
+    // Respond with a success message
+    res.status(200).json({ message: "User logged in successfully", login: true });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  } finally {
+    // Close the database connection
+    mongoose.disconnect();
+  }
+});
+
 app.listen(PORT, () => {});

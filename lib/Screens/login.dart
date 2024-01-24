@@ -1,4 +1,6 @@
 import "package:flutter/material.dart";
+import "package:sourcify/Models/user_cred.dart";
+import 'package:sourcify/Utilities/api/api.dart';
 import "package:sourcify/Utilities/routes.dart";
 
 class Login extends StatefulWidget {
@@ -13,6 +15,8 @@ class _LoginState extends State<Login> {
   String name = "";
   bool changeButton = false;
   final _formkey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   moveToHome(BuildContext context) async {
     if (_formkey.currentState!.validate()) {
@@ -54,11 +58,12 @@ class _LoginState extends State<Login> {
               child: Column(
                 children: [
                   TextFormField(
+                    controller: _emailController,
                     decoration: const InputDecoration(
-                        hintText: "Enter Username", labelText: "Username"),
+                        hintText: "Enter Email", labelText: "Email"),
                     validator: (value) {
                       if (value?.isEmpty ?? true) {
-                        return "Username cannot be empty!!!";
+                        return "Email cannot be empty!!!";
                       } else {
                         return null;
                       }
@@ -69,6 +74,7 @@ class _LoginState extends State<Login> {
                     },
                   ),
                   TextFormField(
+                    controller: _passwordController,
                     obscureText: true,
                     decoration: const InputDecoration(
                         hintText: "Enter Password", labelText: "Password"),
@@ -92,7 +98,22 @@ class _LoginState extends State<Login> {
               borderRadius: BorderRadius.circular(changeButton ? 25 : 8),
               color: Colors.deepPurple,
               child: InkWell(
-                onTap: () => {moveToHome(context)},
+                onTap: () => {
+                  Api()
+                      .loginUser(UserCred(
+                          email: _emailController.text,
+                          password: _passwordController.text))
+                      .then((res) => {
+                            if (res.statusCode == 200)
+                              {Navigator.pushNamed(context, RouteSet.homeRoute)}
+                            else
+                              {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text("Invalid Credentials")))
+                              }
+                          })
+                },
                 child: AnimatedContainer(
                     duration: const Duration(milliseconds: 500),
                     width: changeButton ? 50 : 150,
@@ -106,10 +127,32 @@ class _LoginState extends State<Login> {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18))),
               ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, RouteSet.signupRoute);
+              },
+              child: const Text(
+                "Don't have an account? Sign Up",
+                style: TextStyle(
+                    color: Colors.deepPurple,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18),
+              ),
             )
           ],
         ),
       )),
     );
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 }

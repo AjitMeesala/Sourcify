@@ -26,10 +26,10 @@ class MyApp extends StatelessWidget {
       theme: MyTheme.lightTheme(context),
       darkTheme: MyTheme.darkTheme(context),
       debugShowCheckedModeBanner: false,
-      initialRoute: RouteSet.homeRoute,
+      initialRoute: RouteSet.loginRoute,
       routes: {
         "/": (context) => const Login(),
-        RouteSet.homeRoute: (context) => const Home(),
+        RouteSet.homeRoute: (context) => const Home(userLoggedIn: false),
         // RouteSet.productDetailsRoute: (context) => const ProductDetails(),
         RouteSet.loginRoute: (context) => const Login(),
         RouteSet.cartRoute: (context) => const Cart(),
